@@ -8,14 +8,13 @@
 
 import UIKit
 
-
 class ViewController: UIViewController {
     
-    @IBOutlet weak var userNameTF:UITextField!
-    @IBOutlet weak var passwordTF:UITextField!
-    @IBOutlet weak var errorLabel:UILabel!
+    @IBOutlet private weak var userNameTF:UITextField!
+    @IBOutlet private weak var passwordTF:UITextField!
+    @IBOutlet fileprivate weak var errorLabel:UILabel!
     
-    var presenter = VCPresenter()
+    private var presenter = VCPresenter()
     
     private var colorArray:[(colorOne:UIColor, colorTwo:UIColor)] = []
 
@@ -42,6 +41,5 @@ extension ViewController: VCDelegate {
         errorLabel.text = "User logged in ;)"
         errorLabel.textColor = .black
         errorLabel.isHidden = false
-        
     }
 }
