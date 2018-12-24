@@ -20,19 +20,17 @@ fileprivate enum LoginError:Error {
 
 class VCPresenter: NSObject {
     
-    private var userName:String!
-    private var password:String!
+    private var loginInfo:(userName:String,password:String)!
     var delegate:VCDelegate?
     
-    public func initWith(userName:String, password:String) {
-        self.userName = userName
-        self.password = password
+    public func initWith(loginInfo:(userName:String, password:String)) {
+        self.loginInfo = loginInfo
     }
     
     private func validateData() throws {
-        if userName.isEmpty {
+        if loginInfo.userName.isEmpty {
             throw LoginError.userNameIsEmpty
-        } else if password.isEmpty {
+        } else if loginInfo.password.isEmpty {
             throw LoginError.passwordIsEmpty
         }
     }
@@ -42,16 +40,19 @@ class VCPresenter: NSObject {
             try validateData()
         } catch LoginError.userNameIsEmpty {
             delegate?.showMessage(message: "Username is empty")
+            return
         } catch LoginError.passwordIsEmpty {
-            delegate?.showMessage(message: "Pasword is empty")
+            delegate?.showMessage(message: "Password is empty")
+            return
         } catch {
             print("\(error)")
+            return
         }
         verifyUser()
     }
     
     private func verifyUser() {
-        if self.userName == "test" && self.password == "12345678" {
+        if self.loginInfo.userName == "test" && self.loginInfo.password == "12345678" {
             // fill the object from api
             _ = User.init(name: "test", gender: .male, email: "test@example.com")
             self.delegate?.userSuccessfullyLoggedIn()

@@ -25,7 +25,8 @@ class ViewController: UIViewController {
     }
 
     @IBAction private func submitData(_ sender: UIButton) {
-        self.presenter.initWith(userName: userNameTF.text!, password: passwordTF.text!)
+        self.presenter.initWith(loginInfo: (userName: userNameTF.text!,
+                                            password: passwordTF.text!))
         self.presenter.login()
     }
 }
